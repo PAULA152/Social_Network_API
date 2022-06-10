@@ -1,25 +1,26 @@
 const { Schema, Types } = require('mongoose');
-const moment = require("moment")
 
-const reactionSchema = new Schema(
+const assignmentSchema = new Schema(
   {
-    reactionId: {
+    assignmentId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
-    reactionBody: {
+    assignmentName: {
       type: String,
       required: true,
-      maxlength: 280,
+      maxlength: 50,
+      minlength: 4,
+      default: 'Unnamed assignment',
     },
-    username: {
-      type: String,
+    score: {
+      type: Number,
       required: true,
+      default: () => Math.floor(Math.random() * (100 - 70 + 1) + 70),
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: timestamp => moment(timestamp).format('MMMM Do YYYY, h:mm:ss a')
     },
   },
   {
@@ -30,4 +31,4 @@ const reactionSchema = new Schema(
   }
 );
 
-module.exports = reactionSchema;
+module.exports = assignmentSchema;
